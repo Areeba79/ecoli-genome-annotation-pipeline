@@ -1,4 +1,7 @@
-*.log
-*.tmp
-*.cache
-__pycache__/
+raw_data/
+trimmed/
+assembly/corrected/
+*.fastq
+*.fastq.gz
+*.fq
+*.fq.gz
