@@ -1,0 +1,146 @@
+- STAGE: Before start
+  args: []
+  config_dir: ''
+  del_after: []
+  output_files: []
+  path: 'true'
+  short_name: before_start
+- STAGE: Read error correction
+  args: []
+  config_dir: ''
+  del_after: []
+  output_files: []
+  path: 'true'
+  short_name: ec_start
+- STAGE: Read error correction
+  args:
+  - /workspaces/100_days/ecoli_genome_annotation/ecoli_genome_project/assembly/corrected/configs/config.info
+  config_dir: corrected
+  del_after:
+  - tmp/hammer_js6xcy9y
+  output_files:
+  - /workspaces/100_days/ecoli_genome_annotation/ecoli_genome_project/assembly/corrected/corrected.yaml
+  path: /usr/libexec/spades/spades-hammer
+  short_name: ec_runtool
+- STAGE: corrected reads compression
+  args:
+  - /usr/share/spades/spades_pipeline/scripts/compress_all.py
+  - --input_file
+  - /workspaces/100_days/ecoli_genome_annotation/ecoli_genome_project/assembly/corrected/corrected.yaml
+  - --ext_python_modules_home
+  - /usr/share/spades
+  - --max_threads
+  - '16'
+  - --output_dir
+  - /workspaces/100_days/ecoli_genome_annotation/ecoli_genome_project/assembly/corrected
+  - --gzip_output
+  config_dir: ''
+  del_after: []
+  output_files: []
+  path: /usr/bin/python3
+  short_name: ec_compress
+- STAGE: Read error correction
+  args: []
+  config_dir: ''
+  del_after: []
+  output_files: []
+  path: 'true'
+  short_name: ec_finish
+- STAGE: Assembling
+  args: []
+  config_dir: ''
+  del_after: []
+  output_files: []
+  path: 'true'
+  short_name: as_start
+- STAGE: K21
+  args:
+  - /workspaces/100_days/ecoli_genome_annotation/ecoli_genome_project/assembly/K21/configs/config.info
+  config_dir: K21
+  del_after: []
+  output_files: []
+  path: /usr/libexec/spades/spades-core
+  short_name: k21
+- STAGE: K33
+  args:
+  - /workspaces/100_days/ecoli_genome_annotation/ecoli_genome_project/assembly/K33/configs/config.info
+  config_dir: K33
+  del_after: []
+  output_files: []
+  path: /usr/libexec/spades/spades-core
+  short_name: k33
+- STAGE: K55
+  args:
+  - /workspaces/100_days/ecoli_genome_annotation/ecoli_genome_project/assembly/K55/configs/config.info
+  config_dir: K55
+  del_after: []
+  output_files: []
+  path: /usr/libexec/spades/spades-core
+  short_name: k55
+- STAGE: K77
+  args:
+  - /workspaces/100_days/ecoli_genome_annotation/ecoli_genome_project/assembly/K77/configs/config.info
+  config_dir: K77
+  del_after: []
+  output_files: []
+  path: /usr/libexec/spades/spades-core
+  short_name: k77
+- STAGE: Copy files
+  args:
+  - /usr/share/spades/spades_pipeline/scripts/copy_files.py
+  - /workspaces/100_days/ecoli_genome_annotation/ecoli_genome_project/assembly/K77/before_rr.fasta
+  - /workspaces/100_days/ecoli_genome_annotation/ecoli_genome_project/assembly/before_rr.fasta
+  - /workspaces/100_days/ecoli_genome_annotation/ecoli_genome_project/assembly/K77/assembly_graph_after_simplification.gfa
+  - /workspaces/100_days/ecoli_genome_annotation/ecoli_genome_project/assembly/assembly_graph_after_simplification.gfa
+  - /workspaces/100_days/ecoli_genome_annotation/ecoli_genome_project/assembly/K77/final_contigs.fasta
+  - /workspaces/100_days/ecoli_genome_annotation/ecoli_genome_project/assembly/contigs.fasta
+  - /workspaces/100_days/ecoli_genome_annotation/ecoli_genome_project/assembly/K77/first_pe_contigs.fasta
+  - /workspaces/100_days/ecoli_genome_annotation/ecoli_genome_project/assembly/first_pe_contigs.fasta
+  - /workspaces/100_days/ecoli_genome_annotation/ecoli_genome_project/assembly/K77/strain_graph.gfa
+  - /workspaces/100_days/ecoli_genome_annotation/ecoli_genome_project/assembly/strain_graph.gfa
+  - /workspaces/100_days/ecoli_genome_annotation/ecoli_genome_project/assembly/K77/scaffolds.fasta
+  - /workspaces/100_days/ecoli_genome_annotation/ecoli_genome_project/assembly/scaffolds.fasta
+  - /workspaces/100_days/ecoli_genome_annotation/ecoli_genome_project/assembly/K77/scaffolds.paths
+  - /workspaces/100_days/ecoli_genome_annotation/ecoli_genome_project/assembly/scaffolds.paths
+  - /workspaces/100_days/ecoli_genome_annotation/ecoli_genome_project/assembly/K77/assembly_graph_with_scaffolds.gfa
+  - /workspaces/100_days/ecoli_genome_annotation/ecoli_genome_project/assembly/assembly_graph_with_scaffolds.gfa
+  - /workspaces/100_days/ecoli_genome_annotation/ecoli_genome_project/assembly/K77/assembly_graph.fastg
+  - /workspaces/100_days/ecoli_genome_annotation/ecoli_genome_project/assembly/assembly_graph.fastg
+  - /workspaces/100_days/ecoli_genome_annotation/ecoli_genome_project/assembly/K77/final_contigs.paths
+  - /workspaces/100_days/ecoli_genome_annotation/ecoli_genome_project/assembly/contigs.paths
+  config_dir: ''
+  del_after:
+  - .bin_reads
+  - tmp/spades_b15zt5gw
+  output_files: []
+  path: /usr/bin/python3
+  short_name: copy_files
+- STAGE: Assembling
+  args: []
+  config_dir: ''
+  del_after: []
+  output_files: []
+  path: 'true'
+  short_name: as_finish
+- STAGE: Breaking scaffolds
+  args:
+  - /usr/share/spades/spades_pipeline/scripts/breaking_scaffolds_script.py
+  - --result_scaffolds_filename
+  - /workspaces/100_days/ecoli_genome_annotation/ecoli_genome_project/assembly/scaffolds.fasta
+  - --misc_dir
+  - /workspaces/100_days/ecoli_genome_annotation/ecoli_genome_project/assembly/misc
+  - --threshold_for_breaking_scaffolds
+  - '3'
+  config_dir: ''
+  del_after: []
+  output_files: []
+  path: /usr/bin/python3
+  short_name: bs
+- STAGE: Terminate
+  args: []
+  config_dir: ''
+  del_after:
+  - configs
+  output_files: []
+  path: 'true'
+  short_name: terminate

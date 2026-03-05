@@ -1,0 +1,7 @@
+- "left reads":
+  - "/workspaces/100_days/ecoli_genome_annotation/ecoli_genome_project/trimmed/forward_paired.fq.gz"
+  "number": !!int "1"
+  "orientation": "fr"
+  "right reads":
+  - "/workspaces/100_days/ecoli_genome_annotation/ecoli_genome_project/trimmed/reverse_paired.fq.gz"
+  "type": "paired-end"

@@ -1,0 +1,9 @@
+- "left reads":
+  - "/workspaces/100_days/ecoli_genome_annotation/ecoli_genome_project/assembly/corrected/forward_paired.fq.00.0_0.cor.fastq.gz"
+  "number": !!int "1"
+  "orientation": "fr"
+  "right reads":
+  - "/workspaces/100_days/ecoli_genome_annotation/ecoli_genome_project/assembly/corrected/reverse_paired.fq.00.0_0.cor.fastq.gz"
+  "single reads":
+  - "/workspaces/100_days/ecoli_genome_annotation/ecoli_genome_project/assembly/corrected/_unpaired.00.0_0.cor.fastq.gz"
+  "type": "paired-end"
